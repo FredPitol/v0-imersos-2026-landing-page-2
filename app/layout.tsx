@@ -1,20 +1,17 @@
 import type { Metadata, Viewport } from 'next'
-import { Oswald, Raleway } from 'next/font/google'
+import { Inter, Bebas_Neue } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-// Oswald - Bold display font for titles (Monument Extended alternative)
-const oswald = Oswald({ 
+const inter = Inter({ 
   subsets: ["latin"],
-  variable: '--font-oswald',
-  weight: ['400', '500', '600', '700']
+  variable: '--font-inter'
 });
 
-// Raleway - Clean sans-serif for body/subtitles (Maxima Nouva alternative)
-const raleway = Raleway({ 
+const bebasNeue = Bebas_Neue({ 
+  weight: "400",
   subsets: ["latin"],
-  variable: '--font-raleway',
-  weight: ['300', '400', '500', '600', '700']
+  variable: '--font-bebas-neue'
 });
 
 export const metadata: Metadata = {
@@ -42,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${oswald.variable} ${raleway.variable} font-sans antialiased bg-background text-foreground`}>
+      <body className={`${inter.variable} ${bebasNeue.variable} font-sans antialiased bg-background text-foreground`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

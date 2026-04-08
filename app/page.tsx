@@ -74,7 +74,6 @@ function HeroSection() {
           </div>
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
-            <span className="text-foreground">IMERSOS</span>
             <span className="block text-primary">2026</span>
           </h1>
           

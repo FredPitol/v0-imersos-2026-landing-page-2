@@ -68,18 +68,13 @@ function HeroSection() {
       <div className="relative z-10 container mx-auto px-4 py-20">
         {/* Main Hero Content */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-8">
-            <Flame className="w-5 h-5 text-primary" />
-            <span className="text-primary font-medium">Conferência Jovem Cristã</span>
+          <div className="flex justify-center mb-8">
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BRASAO-p4HmzUtmUTpqQe0xNy8FIKttyBxocr.png"
+              alt="IMERSOS 2026 - A Missão - O Despertar de Uma Geração"
+              className="w-64 md:w-80 lg:w-96 h-auto"
+            />
           </div>
-          
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
-            <span className="block text-primary">2026</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-8 text-pretty">
-            O Despertar de Uma Geração
-          </p>
         </div>
 
         {/* Carousel Cards */}

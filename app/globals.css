@@ -3,92 +3,122 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Imersos 2026 - Dark Theme with Vibrant Accents */
+/* IMERSOS 2026 - Brand Style Guide */
+/* Color Palette: Charcoal, Olive Green, Copper/Bronze, Tan, Beige, Cream */
 :root {
-  --background: oklch(0.08 0.01 270);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.12 0.015 270);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.1 0.01 270);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.75 0.2 50);
-  --primary-foreground: oklch(0.1 0 0);
-  --secondary: oklch(0.2 0.02 270);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.18 0.015 270);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.65 0.25 265);
-  --accent-foreground: oklch(0.98 0 0);
+  /* Background - Deep charcoal/black */
+  --background: oklch(0.1 0.005 0);
+  --foreground: oklch(0.92 0.01 70);
+  
+  /* Cards - Slightly lighter charcoal */
+  --card: oklch(0.14 0.005 0);
+  --card-foreground: oklch(0.92 0.01 70);
+  
+  --popover: oklch(0.12 0.005 0);
+  --popover-foreground: oklch(0.92 0.01 70);
+  
+  /* Primary - Copper/Bronze Orange */
+  --primary: oklch(0.65 0.14 45);
+  --primary-foreground: oklch(0.12 0 0);
+  
+  /* Secondary - Olive Green */
+  --secondary: oklch(0.45 0.08 125);
+  --secondary-foreground: oklch(0.95 0 0);
+  
+  /* Muted - Dark gray */
+  --muted: oklch(0.2 0.005 0);
+  --muted-foreground: oklch(0.65 0.02 70);
+  
+  /* Accent - Tan/Sand */
+  --accent: oklch(0.7 0.08 70);
+  --accent-foreground: oklch(0.12 0 0);
+  
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.25 0.02 270);
-  --input: oklch(0.18 0.015 270);
-  --ring: oklch(0.75 0.2 50);
-  --chart-1: oklch(0.75 0.2 50);
-  --chart-2: oklch(0.65 0.25 265);
-  --chart-3: oklch(0.7 0.2 200);
-  --chart-4: oklch(0.8 0.15 90);
-  --chart-5: oklch(0.7 0.25 330);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.1 0.01 270);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.75 0.2 50);
-  --sidebar-primary-foreground: oklch(0.1 0 0);
-  --sidebar-accent: oklch(0.18 0.015 270);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.25 0.02 270);
-  --sidebar-ring: oklch(0.75 0.2 50);
   
-  /* Custom accent colors */
-  --neon-orange: oklch(0.75 0.2 50);
-  --electric-blue: oklch(0.65 0.25 265);
-  --deep-purple: oklch(0.45 0.2 290);
-  --glow: oklch(0.75 0.2 50 / 0.3);
+  --border: oklch(0.25 0.01 45);
+  --input: oklch(0.18 0.005 0);
+  --ring: oklch(0.65 0.14 45);
+  
+  /* Chart colors matching brand palette */
+  --chart-1: oklch(0.65 0.14 45);
+  --chart-2: oklch(0.45 0.08 125);
+  --chart-3: oklch(0.7 0.08 70);
+  --chart-4: oklch(0.8 0.05 80);
+  --chart-5: oklch(0.9 0.03 85);
+  
+  --radius: 0.5rem;
+  
+  --sidebar: oklch(0.12 0.005 0);
+  --sidebar-foreground: oklch(0.92 0.01 70);
+  --sidebar-primary: oklch(0.65 0.14 45);
+  --sidebar-primary-foreground: oklch(0.12 0 0);
+  --sidebar-accent: oklch(0.18 0.005 0);
+  --sidebar-accent-foreground: oklch(0.92 0.01 70);
+  --sidebar-border: oklch(0.25 0.01 45);
+  --sidebar-ring: oklch(0.65 0.14 45);
+  
+  /* Brand accent colors */
+  --copper: oklch(0.65 0.14 45);
+  --copper-light: oklch(0.75 0.12 50);
+  --olive: oklch(0.45 0.08 125);
+  --olive-dark: oklch(0.35 0.06 125);
+  --tan: oklch(0.7 0.08 70);
+  --beige: oklch(0.85 0.04 80);
+  --cream: oklch(0.92 0.02 85);
+  --charcoal: oklch(0.15 0.005 0);
 }
 
 .dark {
-  --background: oklch(0.08 0.01 270);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.12 0.015 270);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.1 0.01 270);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.75 0.2 50);
-  --primary-foreground: oklch(0.1 0 0);
-  --secondary: oklch(0.2 0.02 270);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.18 0.015 270);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.65 0.25 265);
-  --accent-foreground: oklch(0.98 0 0);
+  --background: oklch(0.1 0.005 0);
+  --foreground: oklch(0.92 0.01 70);
+  --card: oklch(0.14 0.005 0);
+  --card-foreground: oklch(0.92 0.01 70);
+  --popover: oklch(0.12 0.005 0);
+  --popover-foreground: oklch(0.92 0.01 70);
+  --primary: oklch(0.65 0.14 45);
+  --primary-foreground: oklch(0.12 0 0);
+  --secondary: oklch(0.45 0.08 125);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.2 0.005 0);
+  --muted-foreground: oklch(0.65 0.02 70);
+  --accent: oklch(0.7 0.08 70);
+  --accent-foreground: oklch(0.12 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.25 0.02 270);
-  --input: oklch(0.18 0.015 270);
-  --ring: oklch(0.75 0.2 50);
-  --chart-1: oklch(0.75 0.2 50);
-  --chart-2: oklch(0.65 0.25 265);
-  --chart-3: oklch(0.7 0.2 200);
-  --chart-4: oklch(0.8 0.15 90);
-  --chart-5: oklch(0.7 0.25 330);
-  --sidebar: oklch(0.1 0.01 270);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.75 0.2 50);
-  --sidebar-primary-foreground: oklch(0.1 0 0);
-  --sidebar-accent: oklch(0.18 0.015 270);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.25 0.02 270);
-  --sidebar-ring: oklch(0.75 0.2 50);
+  --border: oklch(0.25 0.01 45);
+  --input: oklch(0.18 0.005 0);
+  --ring: oklch(0.65 0.14 45);
+  --chart-1: oklch(0.65 0.14 45);
+  --chart-2: oklch(0.45 0.08 125);
+  --chart-3: oklch(0.7 0.08 70);
+  --chart-4: oklch(0.8 0.05 80);
+  --chart-5: oklch(0.9 0.03 85);
+  --sidebar: oklch(0.12 0.005 0);
+  --sidebar-foreground: oklch(0.92 0.01 70);
+  --sidebar-primary: oklch(0.65 0.14 45);
+  --sidebar-primary-foreground: oklch(0.12 0 0);
+  --sidebar-accent: oklch(0.18 0.005 0);
+  --sidebar-accent-foreground: oklch(0.92 0.01 70);
+  --sidebar-border: oklch(0.25 0.01 45);
+  --sidebar-ring: oklch(0.65 0.14 45);
 }
 
 @theme inline {
-  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
-  --font-display: var(--font-bebas-neue), 'Bebas Neue', system-ui, sans-serif;
+  /* Typography - Oswald for titles (Monument Extended alternative), Raleway for subtitles (Maxima Nouva alternative) */
+  --font-sans: 'Raleway', 'Raleway Fallback', system-ui, sans-serif;
+  --font-display: var(--font-oswald), 'Oswald', system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
-  --color-neon-orange: var(--neon-orange);
-  --color-electric-blue: var(--electric-blue);
-  --color-deep-purple: var(--deep-purple);
-  --color-glow: var(--glow);
+  
+  /* Brand colors */
+  --color-copper: var(--copper);
+  --color-copper-light: var(--copper-light);
+  --color-olive: var(--olive);
+  --color-olive-dark: var(--olive-dark);
+  --color-tan: var(--tan);
+  --color-beige: var(--beige);
+  --color-cream: var(--cream);
+  --color-charcoal: var(--charcoal);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

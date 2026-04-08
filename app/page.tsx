@@ -58,12 +58,12 @@ function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-deep-purple/20" />
+      {/* Background - Pure black matching brand */}
+      <div className="absolute inset-0 bg-background" />
       
-      {/* Animated glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse delay-1000" />
+      {/* Subtle glow effects with brand colors */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl" />
       
       <div className="relative z-10 container mx-auto px-4 py-20">
         {/* Main Hero Content */}
@@ -96,7 +96,7 @@ function HeroSection() {
                   <div key={index} className="w-full flex-shrink-0 px-4">
                     <Card className={`${slide.accent} border-0 overflow-hidden`}>
                       <CardContent className="p-8 md:p-12 text-center">
-                        <h3 className="text-2xl md:text-4xl font-bold text-primary-foreground mb-3">
+                        <h3 className="text-2xl md:text-4xl font-display font-bold text-primary-foreground mb-3 tracking-wide uppercase">
                           {slide.title}
                         </h3>
                         <p className="text-xl md:text-2xl font-medium text-primary-foreground/90 mb-4">
@@ -190,7 +190,7 @@ function AboutSection() {
 
         {/* Journey Section */}
         <div className="mt-16">
-          <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 text-primary">
+          <h3 className="text-2xl md:text-3xl font-display font-bold text-center mb-10 text-primary tracking-wide uppercase">
             VOCÊ SERÁ CONDUZIDO A UMA JORNADA
           </h3>
           
@@ -238,14 +238,14 @@ function PreviousEditionsSection() {
   return (
     <section className="py-24 bg-card/30">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
+        <h2 className="text-3xl md:text-5xl font-display font-bold text-center mb-4 tracking-wide">
           Veja o que Deus já fez…
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-12">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
+              <div className="text-5xl md:text-6xl font-display font-bold text-primary mb-2">
                 {stat.number}
               </div>
               <p className="text-muted-foreground text-lg">{stat.label}</p>
@@ -284,7 +284,7 @@ function HowItStartedSection() {
             <div className="p-3 rounded-full bg-primary/10">
               <BookOpen className="w-8 h-8 text-primary" />
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold">
+            <h2 className="text-3xl md:text-5xl font-display font-bold tracking-wide">
               Uma visão que nasceu em Deus
             </h2>
           </div>
@@ -343,7 +343,7 @@ function TeamSection() {
     <section className="py-24 bg-card/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 tracking-wide">
             Unidos em um só propósito
           </h2>
           <Button 
@@ -562,7 +562,7 @@ function StatsSection() {
   return (
     <section className="py-24 bg-gradient-to-b from-card/50 to-background">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-5xl font-bold mb-6">
+        <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 tracking-wide">
           Mais de <span className="text-primary">2.000</span> pessoas já disseram sim
         </h2>
         <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -584,7 +584,7 @@ function FinalCTASection() {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-12 text-balance">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold mb-12 text-balance tracking-wide">
             Se você foi alcançado, você já sabe a resposta.
           </h2>
           
@@ -608,39 +608,49 @@ function Footer() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
-          <div className="text-2xl font-bold">
-            <span className="text-foreground">IMERSOS</span>
-            <span className="text-primary">2026</span>
+          <div className="flex items-center gap-3">
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BRASAO-p4HmzUtmUTpqQe0xNy8FIKttyBxocr.png"
+              alt="IMERSOS 2026"
+              className="w-16 h-auto"
+            />
           </div>
           
-          {/* Social Links */}
-          <div className="flex items-center gap-6">
+          {/* Social Links - Circular outlined icons per brand guide */}
+          <div className="flex items-center gap-4">
+            {/* YouTube */}
             <a 
-              href="https://www.instagram.com/confimersos/" 
+              href="https://www.youtube.com/@confimersos" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+              className="w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+              aria-label="YouTube"
             >
-              <Instagram className="w-5 h-5" />
-              <span className="sr-only sm:not-sr-only">@confimersos</span>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
             </a>
             
+            {/* WhatsApp */}
             <a 
               href="https://wa.me/5527997766544" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+              className="w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+              aria-label="WhatsApp"
             >
               <MessageCircle className="w-5 h-5" />
-              <span className="sr-only sm:not-sr-only">(27) 99776-6544</span>
             </a>
             
+            {/* Instagram */}
             <a 
-              href="mailto:imersos@confimersos.com.br"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+              href="https://www.instagram.com/confimersos/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+              aria-label="Instagram"
             >
-              <Mail className="w-5 h-5" />
-              <span className="sr-only sm:not-sr-only">imersos@confimersos.com.br</span>
+              <Instagram className="w-5 h-5" />
             </a>
           </div>
         </div>

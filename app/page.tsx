@@ -152,14 +152,19 @@ function AboutSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/50 to-transparent" />
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Main Badge/Button */}
+        {/* Section Header */}
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 text-foreground">
+          IMERSOS 2026 — A MISSÃO: O DESPERTAR DE UMA GERAÇÃO
+        </h2>
+        
+        {/* Main CTA Button */}
         <div className="text-center mb-12">
           <Button 
             asChild
             size="lg" 
             className="text-lg md:text-xl px-8 py-6 h-auto bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-lg shadow-primary/30"
           >
-            <a href="#">IMERSOS 2026 — A MISSÃO: O DESPERTAR DE UMA GERAÇÃO</a>
+            <a href="#">QUERO PARTICIPAR DA MISSÃO</a>
           </Button>
         </div>
 

@@ -83,7 +83,7 @@
 
 @theme inline {
   --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
-  --font-display: 'Space Grotesk', 'Space Grotesk Fallback', system-ui, sans-serif;
+  --font-display: var(--font-bebas-neue), 'Bebas Neue', system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --color-neon-orange: var(--neon-orange);
   --color-electric-blue: var(--electric-blue);

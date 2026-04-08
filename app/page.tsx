@@ -153,7 +153,7 @@ function AboutSection() {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-12 text-foreground">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-center mb-12 text-foreground tracking-wide">
           IMERSOS 2026 — A MISSÃO: O DESPERTAR DE UMA GERAÇÃO
         </h2>
         

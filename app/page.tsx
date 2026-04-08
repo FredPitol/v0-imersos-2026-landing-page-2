@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { 
   Flame, 
   Heart, 
@@ -23,6 +23,52 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+
+// Componente para criar o efeito de Fade In ao scrollar
+function FadeInSection({ 
+  children, 
+  className = "", 
+  delay = 0 
+}: { 
+  children: React.ReactNode; 
+  className?: string; 
+  delay?: number;
+}) {
+  const [isVisible, setVisible] = useState(false)
+  const domRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.unobserve(entry.target) // Anima apenas a primeira vez que aparece
+        }
+      })
+    }, {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    })
+
+    const current = domRef.current
+    if (current) observer.observe(current)
+    return () => {
+      if (current) observer.unobserve(current)
+    }
+  }, [])
+
+  return (
+    <div
+      ref={domRef}
+      className={`transition-all duration-1000 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+      } ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  )
+}
 
 // Hero Carousel Component
 function HeroSection() {
@@ -67,7 +113,7 @@ function HeroSection() {
       
       <div className="relative z-10 container mx-auto px-4 py-20">
         {/* Main Hero Content */}
-        <div className="text-center mb-12">
+        <FadeInSection className="text-center mb-12">
           <div className="flex justify-center mb-8">
             <img 
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BRASAO-p4HmzUtmUTpqQe0xNy8FIKttyBxocr.png"
@@ -75,10 +121,10 @@ function HeroSection() {
               className="w-64 md:w-80 lg:w-96 h-auto"
             />
           </div>
-        </div>
+        </FadeInSection>
 
         {/* Carousel Cards */}
-        <div className="relative max-w-5xl mx-auto">
+        <FadeInSection delay={200} className="relative max-w-5xl mx-auto">
           <div className="flex items-center justify-center gap-4">
             <button 
               onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
@@ -132,7 +178,7 @@ function HeroSection() {
               />
             ))}
           </div>
-        </div>
+        </FadeInSection>
       </div>
     </section>
   )
@@ -153,12 +199,12 @@ function AboutSection() {
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-center mb-12 text-foreground tracking-wide">
+        <FadeInSection><h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-center mb-12 text-foreground tracking-wide">
           IMERSOS 2026 — A MISSÃO: O DESPERTAR DE UMA GERAÇÃO
-        </h2>
+        </h2></FadeInSection>
         
         {/* Main CTA Button */}
-        <div className="text-center mb-12">
+        <FadeInSection delay={150} className="text-center mb-12">
           <Button 
             asChild
             size="lg" 
@@ -166,9 +212,9 @@ function AboutSection() {
           >
             <a href="#">QUERO PARTICIPAR DA MISSÃO</a>
           </Button>
-        </div>
+        </FadeInSection>
 
-        <div className="max-w-4xl mx-auto text-center space-y-8">
+        <FadeInSection delay={300} className="max-w-4xl mx-auto text-center space-y-8">
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
             Mais do que um evento, a Imersos 2026 é um convite! Não apenas para viver algo com Deus, 
             mas para viver para Deus. Tudo começou com um chamado. Agora é hora da nossa Missão.
@@ -182,34 +228,38 @@ function AboutSection() {
           </p>
           
           <p className="text-lg md:text-xl text-foreground leading-relaxed font-medium">
-            Afinal… O que fazemos com tudo o que recebemos de Deus? Inspirados na vida do apóstolo Paulo, 
-            entendemos que o encontro com Cristo não é o fim — é o começo de uma vida com propósito. 
-            Uma geração está sendo despertada para viver além de si, amar com verdade e carregar o Evangelho com ousadia.
+            <strong>Afinal… O que fazemos com tudo o que recebemos de Deus?</strong>
           </p>
-        </div>
+          <p className="text-lg md:text-xl text-foreground leading-relaxed font-medium mt-4">
+            Inspirados na vida do apóstolo Paulo,
+            entendemos que o encontro com Cristo não é o fim — é o começo de uma vida com propósito.
+            Uma geração está sendo despertada para viver além de si, amar com verdade e carregar o Evangelho com ousadia.
+          </p>        </FadeInSection>
 
         {/* Journey Section */}
         <div className="mt-16">
-          <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 text-primary">
+          <FadeInSection><h3 className="text-2xl md:text-3xl font-bold text-center mb-10 text-primary">
             VOCÊ SERÁ CONDUZIDO A UMA JORNADA
-          </h3>
+          </h3></FadeInSection>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {journeyItems.map((item, index) => (
-              <Card key={index} className="bg-card/50 border-border/50 backdrop-blur">
+              <FadeInSection key={index} delay={index * 150}>
+                <Card className="bg-card/50 border-border/50 backdrop-blur h-full">
                 <CardContent className="p-6 flex items-center gap-4">
                   <div className="p-3 rounded-full bg-primary/10">
                     <item.icon className="w-6 h-6 text-primary" />
                   </div>
                   <span className="text-foreground font-medium">{item.text}</span>
                 </CardContent>
-              </Card>
+                </Card>
+              </FadeInSection>
             ))}
           </div>
         </div>
 
         {/* Closing text and CTA */}
-        <div className="mt-16 text-center space-y-8">
+        <FadeInSection delay={200} className="mt-16 text-center space-y-8">
           <p className="text-xl md:text-2xl text-foreground font-semibold max-w-3xl mx-auto">
             &quot;Se você foi verdadeiramente alcançado, sabe que não pode mais viver da mesma forma.&quot;
           </p>
@@ -221,7 +271,7 @@ function AboutSection() {
           >
             <a href="#">QUERO PARTICIPAR DA MISSÃO</a>
           </Button>
-        </div>
+        </FadeInSection>
       </div>
     </section>
   )
@@ -238,35 +288,37 @@ function PreviousEditionsSection() {
   return (
     <section className="py-24 bg-card/30">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
+        <FadeInSection><h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
           Veja o que Deus já fez…
-        </h2>
+        </h2></FadeInSection>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-12">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center">
+            <FadeInSection key={index} delay={index * 200} className="text-center">
               <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
                 {stat.number}
               </div>
               <p className="text-muted-foreground text-lg">{stat.label}</p>
-            </div>
+            </FadeInSection>
           ))}
         </div>
         
-        <p className="text-2xl md:text-3xl font-semibold text-center mt-12 text-foreground">
-          E isso é só o começo.
-        </p>
-        
-        <div className="text-center mt-8">
-          <a 
-            href="#" 
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-lg font-medium"
-          >
-            <span>👉</span>
-            <span>Quero viver isso também</span>
-            <ArrowRight className="w-5 h-5" />
-          </a>
-        </div>
+        <FadeInSection delay={600}>
+          <p className="text-2xl md:text-3xl font-semibold text-center mt-12 text-foreground">
+            E isso é só o começo.
+          </p>
+          
+          <div className="text-center mt-8">
+            <a 
+              href="#" 
+              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-lg font-medium"
+            >
+              <span>👉</span>
+              <span>Quero viver isso também</span>
+              <ArrowRight className="w-5 h-5" />
+            </a>
+          </div>
+        </FadeInSection>
       </div>
     </section>
   )
@@ -280,40 +332,48 @@ function HowItStartedSection() {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
+          <FadeInSection className="flex items-center gap-4 mb-8">
             <div className="p-3 rounded-full bg-primary/10">
               <BookOpen className="w-8 h-8 text-primary" />
             </div>
             <h2 className="text-3xl md:text-5xl font-bold">
               Uma visão que nasceu em Deus
             </h2>
-          </div>
+          </FadeInSection>
           
           <div className="prose prose-lg prose-invert max-w-none">
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
-              A Conferência Imersos nasceu no coração de Letícia Oliveira e Mikeias Radis, 
-              após uma experiência profunda com Deus. Nesse momento, o Espírito Santo revelou 
-              a ela uma visão completa — tema, estrutura e propósito.
-            </p>
+            <FadeInSection delay={100}>
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
+                A Conferência Imersos nasceu no coração de Letícia Oliveira e Mikeias Radis, 
+                após uma experiência profunda com Deus. Nesse momento, o Espírito Santo revelou 
+                a ela uma visão completa — tema, estrutura e propósito.
+              </p>
+            </FadeInSection>
             
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
-              Com temor e obediência, Letícia compartilhou essa direção com outros irmãos 
-              que carregam o mesmo amor pelo Reino. E ali houve confirmação: Deus testificou 
-              em cada coração, e a visão passou a ser construída em unidade.
-            </p>
+            <FadeInSection delay={200}>
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
+                Com temor e obediência, Letícia compartilhou essa direção com outros irmãos 
+                que carregam o mesmo amor pelo Reino. E ali houve confirmação: Deus testificou 
+                em cada coração, e a visão passou a ser construída em unidade.
+              </p>
+            </FadeInSection>
             
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
-              Com mais de 10 anos dedicados à liderança de adolescentes, Letícia, ao lado de 
-              seu marido e da equipe, já vinha sendo preparada para esse chamado. Sua atuação 
-              também se estende à coordenação da UNADCAR (União de Adolescentes do Campo de Carapina), 
-              fortalecendo o despertar espiritual desta geração.
-            </p>
+            <FadeInSection delay={300}>
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6">
+                Com mais de 10 anos dedicados à liderança de adolescentes, Letícia, ao lado de 
+                seu marido e da equipe, já vinha sendo preparada para esse chamado. Sua atuação 
+                também se estende à coordenação da UNADCAR (União de Adolescentes do Campo de Carapina), 
+                fortalecendo o despertar espiritual desta geração.
+              </p>
+            </FadeInSection>
             
-            <p className="text-lg md:text-xl text-foreground leading-relaxed font-medium">
-              Hoje, a Conferência Imersos é sustentada por uma diretoria alinhada à missão de 
-              formar uma geração teen e jovem mergulhada em Deus, vivendo o chamado com ousadia 
-              e rendição total.
-            </p>
+            <FadeInSection delay={400}>
+              <p className="text-lg md:text-xl text-foreground leading-relaxed font-medium">
+                Hoje, a Conferência Imersos é sustentada por uma diretoria alinhada à missão de 
+                formar uma geração teen e jovem mergulhada em Deus, vivendo o chamado com ousadia 
+                e rendição total.
+              </p>
+            </FadeInSection>
           </div>
         </div>
       </div>
@@ -342,7 +402,7 @@ function TeamSection() {
   return (
     <section className="py-24 bg-card/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <FadeInSection className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Unidos em um só propósito
           </h2>
@@ -354,70 +414,78 @@ function TeamSection() {
           >
             <a href="#">Conheça nosso Exército de Deus</a>
           </Button>
-        </div>
+        </FadeInSection>
 
         {/* Leadership */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
           {teamMembers.map((member, index) => (
-            <Card key={index} className="bg-card border-border/50 hover:border-primary/50 transition-colors">
-              <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <member.icon className="w-8 h-8 text-primary" />
-                </div>
-                <p className="text-sm text-muted-foreground mb-1">{member.role}</p>
-                <h4 className="text-lg font-semibold text-foreground">{member.name}</h4>
-              </CardContent>
-            </Card>
+            <FadeInSection key={index} delay={index * 150}>
+              <Card className="bg-card border-border/50 hover:border-primary/50 transition-colors h-full">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <member.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-1">{member.role}</p>
+                  <h4 className="text-lg font-semibold text-foreground">{member.name}</h4>
+                </CardContent>
+              </Card>
+            </FadeInSection>
           ))}
         </div>
 
         {/* Other Teams */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <Card className="bg-card border-border/50">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <Users className="w-6 h-6 text-primary" />
-                <h4 className="text-lg font-semibold">Coordenadores</h4>
-              </div>
-              <ul className="space-y-2">
-                {coordinators.map((name, index) => (
-                  <li key={index} className="text-muted-foreground">{name}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+          <FadeInSection delay={100} className="h-full">
+            <Card className="bg-card border-border/50 h-full">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Users className="w-6 h-6 text-primary" />
+                  <h4 className="text-lg font-semibold">Coordenadores</h4>
+                </div>
+                <ul className="space-y-2">
+                  {coordinators.map((name, index) => (
+                    <li key={index} className="text-muted-foreground">{name}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </FadeInSection>
 
-          <Card className="bg-card border-border/50">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <Sparkles className="w-6 h-6 text-primary" />
-                <h4 className="text-lg font-semibold">Regentes</h4>
-              </div>
-              <ul className="space-y-2">
-                {regents.map((name, index) => (
-                  <li key={index} className="text-muted-foreground">{name}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+          <FadeInSection delay={200} className="h-full">
+            <Card className="bg-card border-border/50 h-full">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Sparkles className="w-6 h-6 text-primary" />
+                  <h4 className="text-lg font-semibold">Regentes</h4>
+                </div>
+                <ul className="space-y-2">
+                  {regents.map((name, index) => (
+                    <li key={index} className="text-muted-foreground">{name}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </FadeInSection>
 
-          <Card className="bg-card border-border/50">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <Zap className="w-6 h-6 text-primary" />
-                <h4 className="text-lg font-semibold">Mídia</h4>
-              </div>
-              <ul className="space-y-2">
-                {media.map((name, index) => (
-                  <li key={index} className="text-muted-foreground">{name}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+          <FadeInSection delay={300} className="h-full">
+            <Card className="bg-card border-border/50 h-full">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Zap className="w-6 h-6 text-primary" />
+                  <h4 className="text-lg font-semibold">Mídia</h4>
+                </div>
+                <ul className="space-y-2">
+                  {media.map((name, index) => (
+                    <li key={index} className="text-muted-foreground">{name}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </FadeInSection>
         </div>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
+        <FadeInSection delay={400} className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
           <Button 
             asChild
             size="lg" 
@@ -433,7 +501,7 @@ function TeamSection() {
           >
             <a href="#">QUERO ME INSCREVER</a>
           </Button>
-        </div>
+        </FadeInSection>
       </div>
     </section>
   )
@@ -488,68 +556,76 @@ function MissionVisionValuesSection() {
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* Mission - Large Card */}
-          <Card className="lg:row-span-2 bg-gradient-to-br from-primary/20 to-primary/5 border-primary/30">
-            <CardContent className="p-8 h-full flex flex-col">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 rounded-full bg-primary/20">
-                  <Target className="w-8 h-8 text-primary" />
+          <FadeInSection delay={100} className="lg:row-span-2 h-full">
+            <Card className="h-full bg-gradient-to-br from-primary/20 to-primary/5 border-primary/30">
+              <CardContent className="p-8 h-full flex flex-col">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 rounded-full bg-primary/20">
+                    <Target className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-primary">Missão</h3>
                 </div>
-                <h3 className="text-2xl font-bold text-primary">Missão</h3>
-              </div>
-              <p className="text-lg text-foreground leading-relaxed flex-1">
-                Uma geração teen e jovem imersa na Palavra de Deus, mergulhando 
-                nesse chamado com ousadia e rendição total.
-              </p>
-            </CardContent>
-          </Card>
+                <p className="text-lg text-foreground leading-relaxed flex-1">
+                  Uma geração teen e jovem imersa na Palavra de Deus, mergulhando 
+                  nesse chamado com ousadia e rendição total.
+                </p>
+              </CardContent>
+            </Card>
+          </FadeInSection>
 
           {/* Vision */}
-          <Card className="lg:col-span-2 bg-gradient-to-br from-accent/20 to-accent/5 border-accent/30">
-            <CardContent className="p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 rounded-full bg-accent/20">
-                  <Eye className="w-8 h-8 text-accent" />
+          <FadeInSection delay={200} className="lg:col-span-2 h-full">
+            <Card className="h-full bg-gradient-to-br from-accent/20 to-accent/5 border-accent/30">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 rounded-full bg-accent/20">
+                    <Eye className="w-8 h-8 text-accent" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-accent">Visão</h3>
                 </div>
-                <h3 className="text-2xl font-bold text-accent">Visão</h3>
-              </div>
-              <ul className="space-y-3">
-                {visionPoints.map((point, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <Sparkles className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-foreground">{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+                <ul className="space-y-3">
+                  {visionPoints.map((point, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <Sparkles className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-foreground">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </FadeInSection>
 
           {/* Values Header */}
-          <Card className="lg:col-span-2 bg-card border-border/50">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3">
-                <div className="p-3 rounded-full bg-primary/10">
-                  <Gem className="w-8 h-8 text-primary" />
+          <FadeInSection delay={300} className="lg:col-span-2 h-full">
+            <Card className="h-full bg-card border-border/50">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-full bg-primary/10">
+                    <Gem className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-bold">Valores</h3>
                 </div>
-                <h3 className="text-2xl font-bold">Valores</h3>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </FadeInSection>
         </div>
 
         {/* Values Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mt-6">
           {values.map((value, index) => (
-            <Card key={index} className="bg-card border-border/50 hover:border-primary/30 transition-colors">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <value.icon className="w-5 h-5 text-primary" />
+            <FadeInSection key={index} delay={index * 100}>
+              <Card className="bg-card border-border/50 hover:border-primary/30 transition-colors h-full">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <value.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <h4 className="font-semibold text-foreground">{value.title}</h4>
                   </div>
-                  <h4 className="font-semibold text-foreground">{value.title}</h4>
-                </div>
-                <p className="text-muted-foreground">{value.description}</p>
-              </CardContent>
-            </Card>
+                  <p className="text-muted-foreground">{value.description}</p>
+                </CardContent>
+              </Card>
+            </FadeInSection>
           ))}
         </div>
       </div>
@@ -562,13 +638,17 @@ function StatsSection() {
   return (
     <section className="py-24 bg-gradient-to-b from-card/50 to-background">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-5xl font-bold mb-6">
-          Mais de <span className="text-primary">2.000</span> pessoas já disseram sim
-        </h2>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Entre 2024 e 2025, mais de 2.000 participantes fizeram história junto com a gente. 
-          Vidas foram impactadas. Chamados foram despertados. Histórias foram transformadas.
-        </p>
+        <FadeInSection>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            Mais de <span className="text-primary">2.000</span> pessoas já disseram sim
+          </h2>
+        </FadeInSection>
+        <FadeInSection delay={200}>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Entre 2024 e 2025, mais de 2.000 participantes fizeram história junto com a gente. 
+            Vidas foram impactadas. Chamados foram despertados. Histórias foram transformadas.
+          </p>
+        </FadeInSection>
       </div>
     </section>
   )
@@ -583,19 +663,21 @@ function FinalCTASection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl" />
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-12 text-balance">
-            Se você foi alcançado, você já sabe a resposta.
-          </h2>
-          
-          <Button 
-            asChild
-            size="lg" 
-            className="text-xl md:text-2xl px-12 py-8 h-auto bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-2xl shadow-primary/40 transition-all hover:scale-105"
-          >
-            <a href="#">Garantir minha inscrição</a>
-          </Button>
-        </div>
+        <FadeInSection className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-12 text-balance">
+              Se você foi alcançado, você já sabe a resposta.
+            </h2>
+            
+            <Button 
+              asChild
+              size="lg" 
+              className="text-xl md:text-2xl px-12 py-8 h-auto bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-2xl shadow-primary/40 transition-all hover:scale-105"
+            >
+              <a href="#">Garantir minha inscrição</a>
+            </Button>
+          </div>
+        </FadeInSection>
       </div>
     </section>
   )
@@ -608,9 +690,12 @@ function Footer() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
-          <div className="text-2xl font-bold">
-            <span className="text-foreground">IMERSOS</span>
-            <span className="text-primary">2026</span>
+          <div className="flex items-center">
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BRASAO-p4HmzUtmUTpqQe0xNy8FIKttyBxocr.png" 
+              alt="IMERSOS 2026" 
+              className="h-16 w-auto"
+            />
           </div>
           
           {/* Social Links */}

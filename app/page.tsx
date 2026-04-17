@@ -68,6 +68,32 @@ function FadeInSection({
       {children}
     </div>
   )
+} 
+
+// Componente do Header / Navegação
+function Header() {
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+        <a href="#inicio" className="flex items-center">
+          <img 
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BRASAO-p4HmzUtmUTpqQe0xNy8FIKttyBxocr.png" 
+            alt="Imersos Logo" 
+            className="h-10 md:h-12 w-auto"
+          />
+        </a>
+        <nav className="hidden md:flex items-center gap-8">
+          <a href="#missao" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">A Missão</a>
+          <a href="#historia" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Nossa História</a>
+          <a href="#equipe" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Equipe</a>
+          <a href="#valores" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Valores</a>
+        </nav>
+        <Button asChild size="sm" className="rounded-full px-6">
+          <a href="#inscricao">Inscrever-se</a>
+        </Button>
+      </div>
+    </header>
+  )
 }
 
 // Hero Carousel Component
@@ -103,7 +129,7 @@ function HeroSection() {
   }, [slides.length])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-deep-purple/20" />
       
@@ -194,7 +220,7 @@ function AboutSection() {
   ]
 
   return (
-    <section className="py-24 relative">
+    <section id="missao" className="py-24 relative scroll-mt-20">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/50 to-transparent" />
       
       <div className="container mx-auto px-4 relative z-10">
@@ -286,7 +312,7 @@ function PreviousEditionsSection() {
   ]
 
   return (
-    <section className="py-24 bg-card/30">
+    <section id="edicoes" className="py-24 bg-card/30 scroll-mt-20">
       <div className="container mx-auto px-4">
         <FadeInSection><h2 className="text-3xl md:text-5xl font-bold text-center mb-4">
           Veja o que Deus já fez…
@@ -313,9 +339,6 @@ function PreviousEditionsSection() {
               href="#" 
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-lg font-medium"
             >
-              <span>👉</span>
-              <span>Quero viver isso também</span>
-              <ArrowRight className="w-5 h-5" />
             </a>
           </div>
         </FadeInSection>
@@ -327,7 +350,7 @@ function PreviousEditionsSection() {
 // How It Started Section
 function HowItStartedSection() {
   return (
-    <section className="py-24 relative">
+    <section id="historia" className="py-24 relative scroll-mt-20">
       <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
       
       <div className="container mx-auto px-4 relative z-10">
@@ -400,7 +423,7 @@ function TeamSection() {
   const media = ["Cassielen Oliveira", "Emily Nascimento", "Izabelly Souza", "Jhamilly Oliveira"]
 
   return (
-    <section className="py-24 bg-card/30">
+    <section id="equipe" className="py-24 bg-card/30 scroll-mt-20">
       <div className="container mx-auto px-4">
         <FadeInSection className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
@@ -486,13 +509,7 @@ function TeamSection() {
 
         {/* CTAs */}
         <FadeInSection delay={400} className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
-          <Button 
-            asChild
-            size="lg" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8"
-          >
-            <a href="#">IMERSOS 2026</a>
-          </Button>
+    
           <Button 
             asChild
             size="lg" 
@@ -551,12 +568,12 @@ function MissionVisionValuesSection() {
   ]
 
   return (
-    <section className="py-24">
+    <section id="valores" className="py-24 scroll-mt-20">
       <div className="container mx-auto px-4">
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* Mission - Large Card */}
-          <FadeInSection delay={100} className="lg:row-span-2 h-full">
+          <FadeInSection delay={100} className="h-full">
             <Card className="h-full bg-gradient-to-br from-primary/20 to-primary/5 border-primary/30">
               <CardContent className="p-8 h-full flex flex-col">
                 <div className="flex items-center gap-3 mb-6">
@@ -596,14 +613,20 @@ function MissionVisionValuesSection() {
           </FadeInSection>
 
           {/* Values Header */}
-          <FadeInSection delay={300} className="lg:col-span-2 h-full">
-            <Card className="h-full bg-card border-border/50">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-full bg-primary/10">
-                    <Gem className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-2xl font-bold">Valores</h3>
+          <FadeInSection delay={300} className="lg:col-span-3 h-full">
+            <Card className="h-full relative overflow-hidden border-primary/40 bg-gradient-to-r from-primary/10 via-card to-card hover:border-primary/60 transition-all duration-500 group">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <CardContent className="p-6 md:p-8 flex flex-col sm:flex-row items-center justify-center text-center sm:text-left gap-4 md:gap-6 relative z-10 h-full">
+                <div className="p-4 rounded-2xl bg-background shadow-lg shadow-primary/20 border border-primary/20">
+                  <Gem className="w-8 h-8 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+                    Nossos Valores
+                  </h3>
+                  <p className="text-muted-foreground mt-1 font-medium">
+                    Os princípios inegociáveis que nos guiam
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -635,9 +658,26 @@ function MissionVisionValuesSection() {
 
 // Stats Section
 function StatsSection() {
+  const [currentImage, setCurrentImage] = useState(0)
+
+  const carouselImages = [
+    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=2074&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=2070&auto=format&fit=crop"
+  ]
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % carouselImages.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [carouselImages.length])
+
   return (
-    <section className="py-24 bg-gradient-to-b from-card/50 to-background">
-      <div className="container mx-auto px-4 text-center">
+    <section id="resultados" className="py-24 bg-gradient-to-b from-card/50 to-background overflow-hidden scroll-mt-20">
+      <div className="container mx-auto px-4 text-center mb-16">
         <FadeInSection>
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Mais de <span className="text-primary">2.000</span> pessoas já disseram sim
@@ -650,6 +690,44 @@ function StatsSection() {
           </p>
         </FadeInSection>
       </div>
+
+      {/* Image Carousel */}
+      <FadeInSection delay={400} className="w-full max-w-6xl mx-auto px-4">
+        <div className="relative rounded-2xl overflow-hidden aspect-video md:aspect-[21/9] shadow-2xl shadow-primary/20 bg-muted">
+          <div 
+            className="flex h-full transition-transform duration-1000 ease-in-out"
+            style={{ transform: `translateX(-${currentImage * 100}%)` }}
+          >
+            {carouselImages.map((src, index) => (
+              <div key={index} className="w-full h-full flex-shrink-0 relative">
+                <img 
+                  src={src} 
+                  alt={`Imersos Edições Anteriores ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+                {/* Gradiente escuro no fundo da foto para dar contraste aos indicadores */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
+              </div>
+            ))}
+          </div>
+          
+          {/* Dots Indicator */}
+          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3 z-20">
+            {carouselImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImage(index)}
+                className={`h-2.5 rounded-full transition-all duration-500 ${
+                  currentImage === index 
+                    ? 'bg-primary w-8' 
+                    : 'bg-white/50 hover:bg-white/80 w-2.5'
+                }`}
+                aria-label={`Ir para a foto ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </FadeInSection>
     </section>
   )
 }
@@ -657,7 +735,7 @@ function StatsSection() {
 // Final CTA Section
 function FinalCTASection() {
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section id="inscricao" className="py-32 relative overflow-hidden scroll-mt-20">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/20" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl" />
@@ -745,6 +823,7 @@ function Footer() {
 export default function ImersosLandingPage() {
   return (
     <main className="min-h-screen bg-background">
+      <Header />
       <HeroSection />
       <AboutSection />
       <PreviousEditionsSection />

@@ -422,10 +422,10 @@ function HowItStartedSection() {
 // Team Section
 function TeamSection() {
   const teamMembers = [
-    { role: "Fundadora e Líder", name: "Letícia Oliveira", icon: Crown },
-    { role: "Líder", name: "Luis Adriano", icon: Star },
-    { role: "Financeiro", name: "Mikeias Radis", icon: Gem },
-    { role: "Secretária", name: "Lavínia Silva", icon: BookOpen }
+    { role: "Fundadora e Líder", name: "Letícia Oliveira", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" },
+    { role: "Líder", name: "Luis Adriano", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop" },
+    { role: "Financeiro", name: "Mikeias Radis", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop" },
+    { role: "Secretária", name: "Lavínia Silva", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" }
   ]
 
   const coordinators = [
@@ -458,13 +458,16 @@ function TeamSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
           {teamMembers.map((member, index) => (
             <FadeInSection key={index} delay={index * 150}>
-              <Card className="bg-card border-border/50 hover:border-primary/50 transition-colors h-full">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <member.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-1">{member.role}</p>
-                  <h4 className="text-lg font-semibold text-foreground">{member.name}</h4>
+              <Card className="relative overflow-hidden group border-border/50 hover:border-primary/50 transition-all h-full aspect-[4/5] rounded-xl">
+                <img 
+                  src={member.image} 
+                  alt={member.name} 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent" />
+                <CardContent className="absolute bottom-0 left-0 right-0 p-6 text-center">
+                  <p className="text-sm text-primary font-semibold mb-1 drop-shadow-md tracking-wide uppercase">{member.role}</p>
+                  <h4 className="text-xl font-bold text-white drop-shadow-lg">{member.name}</h4>
                 </CardContent>
               </Card>
             </FadeInSection>

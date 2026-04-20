@@ -79,7 +79,7 @@ function Header() {
           <img 
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BRASAO-p4HmzUtmUTpqQe0xNy8FIKttyBxocr.png" 
             alt="Imersos Logo" 
-            className="h-10 md:h-12 w-auto"
+            className="h-12 md:h-14 w-auto"
           />
         </a>
         <nav className="hidden md:flex items-center gap-8">
@@ -96,8 +96,35 @@ function Header() {
   )
 }
 
-// Hero Carousel Component
+// Hero Section Component
 function HeroSection() {
+  return (
+    <section id="inicio" className="relative pt-32 pb-20 md:pt-48 md:pb-24 flex items-center justify-center overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-deep-purple/20" />
+      
+      {/* Animated glow effects */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse delay-1000" />
+      
+      <div className="relative z-10 w-full">
+        {/* Main Hero Content */}
+        <FadeInSection className="text-center container mx-auto px-4">
+          <div className="flex justify-center">
+            <img 
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BRASAO-p4HmzUtmUTpqQe0xNy8FIKttyBxocr.png"
+              alt="IMERSOS 2026 - A Missão - O Despertar de Uma Geração"
+              className="w-[360px] md:w-[480px] lg:w-[560px] h-auto"
+            />
+          </div>
+        </FadeInSection>
+      </div>
+    </section>
+  )
+}
+
+// Carousel Section Component
+function CarouselSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
   
   const slides = [
@@ -132,89 +159,68 @@ function HeroSection() {
   }, [slides.length])
 
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-deep-purple/20" />
-      
-      {/* Animated glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse delay-1000" />
-      
-      <div className="relative z-10 container mx-auto px-4 py-20">
-        {/* Main Hero Content */}
-        <FadeInSection className="text-center mb-12">
-          <div className="flex justify-center mb-8">
-            <img 
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BRASAO-p4HmzUtmUTpqQe0xNy8FIKttyBxocr.png"
-              alt="IMERSOS 2026 - A Missão - O Despertar de Uma Geração"
-              className="w-64 md:w-80 lg:w-96 h-auto"
-            />
-          </div>
-        </FadeInSection>
-
-        {/* Carousel Cards */}
-        <FadeInSection delay={200} className="relative max-w-5xl mx-auto">
-          <div className="flex items-center justify-center gap-4">
-            <button 
-              onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
-              className="p-2 rounded-full bg-card border border-border hover:bg-muted transition-colors"
+    <section className="relative w-full overflow-hidden bg-background">
+      <FadeInSection delay={200} className="relative w-full">
+        <div className="relative flex items-center justify-center w-full">
+          <div className="w-full overflow-hidden">
+            <div 
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            
-            <div className="flex-1 overflow-hidden">
-              <div 
-                className="flex transition-transform duration-500 ease-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-              >
-                {slides.map((slide, index) => (
-                  <div key={index} className="w-full flex-shrink-0 px-4">
-                    <Card className="relative border-0 overflow-hidden group min-h-[300px] flex items-center justify-center">
-                      <img 
-                        src={slide.image} 
-                        alt={slide.title} 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className={`absolute inset-0 opacity-80 mix-blend-multiply ${slide.accent}`} />
-                      <CardContent className="relative z-10 p-8 md:p-12 text-center">
-                        <h3 className="text-2xl md:text-4xl font-bold text-white mb-3">
-                          {slide.title}
-                        </h3>
-                        <p className="text-xl md:text-2xl font-medium text-white/90 mb-4">
-                          {slide.subtitle}
-                        </p>
-                        <p className="text-white/80">
-                          {slide.description}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ))}
-              </div>
+              {slides.map((slide, index) => (
+                <div key={index} className="w-full flex-shrink-0">
+                  <Card className="relative border-0 overflow-hidden group min-h-[50vh] md:min-h-[70vh] flex items-center justify-center rounded-none">
+                    <img 
+                      src={slide.image} 
+                      alt={slide.title} 
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className={`absolute inset-0 opacity-80 mix-blend-multiply ${slide.accent}`} />
+                    <CardContent className="relative z-10 p-8 md:p-12 text-center max-w-4xl mx-auto">
+                      <h3 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6 tracking-tight">
+                        {slide.title}
+                      </h3>
+                      <p className="text-xl md:text-3xl font-medium text-white/90 mb-4 md:mb-6">
+                        {slide.subtitle}
+                      </p>
+                      <p className="text-lg md:text-xl text-white/80">
+                        {slide.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
             </div>
-            
-            <button 
-              onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
-              className="p-2 rounded-full bg-card border border-border hover:bg-muted transition-colors"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
           </div>
           
+          <button 
+            onClick={() => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)}
+            className="absolute left-4 md:left-8 p-2 md:p-3 rounded-full bg-black/20 hover:bg-black/40 border border-white/10 text-white backdrop-blur-md transition-all z-20"
+          >
+            <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+          </button>
+          
+          <button 
+            onClick={() => setCurrentSlide((prev) => (prev + 1) % slides.length)}
+            className="absolute right-4 md:right-8 p-2 md:p-3 rounded-full bg-black/20 hover:bg-black/40 border border-white/10 text-white backdrop-blur-md transition-all z-20"
+          >
+            <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+          </button>
+
           {/* Dots indicator */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className="absolute bottom-6 md:bottom-8 left-0 right-0 flex justify-center gap-2 z-20">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-colors ${
-                  currentSlide === index ? 'bg-primary' : 'bg-muted'
+                className={`w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition-all ${
+                  currentSlide === index ? 'bg-white scale-125' : 'bg-white/40 hover:bg-white/60'
                 }`}
               />
             ))}
           </div>
-        </FadeInSection>
-      </div>
+        </div>
+      </FadeInSection>
     </section>
   )
 }
@@ -834,6 +840,7 @@ export default function ImersosLandingPage() {
     <main className="min-h-screen bg-background">
       <Header />
       <HeroSection />
+      <CarouselSection />
       <AboutSection />
       <PreviousEditionsSection />
       <HowItStartedSection />

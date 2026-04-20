@@ -532,10 +532,9 @@ function TeamSection() {
           <Button 
             asChild
             size="lg" 
-            variant="outline"
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-bold px-8"
+            className="text-lg md:text-xl px-8 py-6 h-auto bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-lg shadow-primary/30"
           >
-            <a href="#">QUERO ME INSCREVER</a>
+            <a href="#">QUERO PARTICIPAR DA MISSÃO</a>
           </Button>
         </FadeInSection>
       </div>
@@ -771,7 +770,7 @@ function FinalCTASection() {
               size="lg" 
               className="text-xl md:text-2xl px-12 py-8 h-auto bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-2xl shadow-primary/40 transition-all hover:scale-105"
             >
-              <a href="#">Garantir minha inscrição</a>
+              <a href="#">QUERO PARTICIPAR DA MISSÃO </a>
             </Button>
           </div>
         </FadeInSection>

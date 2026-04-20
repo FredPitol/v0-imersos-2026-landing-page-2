@@ -105,19 +105,22 @@ function HeroSection() {
       title: "IMERSOS 2026",
       subtitle: "O Despertar de Uma Geração",
       description: "Novembro de 2026 • Horário a definir",
-      accent: "bg-primary"
+      accent: "bg-primary",
+      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1920&auto=format&fit=crop"
     },
     {
       title: "COMO SURGIU?",
       subtitle: "Manifesto de Propósito",
       description: "Uma visão que nasceu no coração de Deus para essa geração",
-      accent: "bg-accent"
+      accent: "bg-accent",
+      image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=1920&auto=format&fit=crop"
     },
     {
       title: "EDIÇÕES ANTERIORES",
       subtitle: "Veja o que Deus fez",
       description: "Mais de 2.000 vidas impactadas em duas edições",
-      accent: "bg-primary"
+      accent: "bg-primary",
+      image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=1920&auto=format&fit=crop"
     }
   ]
 
@@ -166,15 +169,21 @@ function HeroSection() {
               >
                 {slides.map((slide, index) => (
                   <div key={index} className="w-full flex-shrink-0 px-4">
-                    <Card className={`${slide.accent} border-0 overflow-hidden`}>
-                      <CardContent className="p-8 md:p-12 text-center">
-                        <h3 className="text-2xl md:text-4xl font-bold text-primary-foreground mb-3">
+                    <Card className="relative border-0 overflow-hidden group min-h-[300px] flex items-center justify-center">
+                      <img 
+                        src={slide.image} 
+                        alt={slide.title} 
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className={`absolute inset-0 opacity-80 mix-blend-multiply ${slide.accent}`} />
+                      <CardContent className="relative z-10 p-8 md:p-12 text-center">
+                        <h3 className="text-2xl md:text-4xl font-bold text-white mb-3">
                           {slide.title}
                         </h3>
-                        <p className="text-xl md:text-2xl font-medium text-primary-foreground/90 mb-4">
+                        <p className="text-xl md:text-2xl font-medium text-white/90 mb-4">
                           {slide.subtitle}
                         </p>
-                        <p className="text-primary-foreground/80">
+                        <p className="text-white/80">
                           {slide.description}
                         </p>
                       </CardContent>

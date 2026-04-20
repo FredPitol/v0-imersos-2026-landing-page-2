@@ -19,7 +19,8 @@ import {
   Gem,
   Star,
   BookOpen,
-  HandHeart
+  HandHeart,
+  Smartphone
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -480,7 +481,7 @@ function TeamSection() {
             <Card className="bg-card border-border/50 h-full">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <Users className="w-6 h-6 text-primary" />
+                  <Crown className="w-6 h-6 text-primary" />
                   <h4 className="text-lg font-semibold">Coordenadores</h4>
                 </div>
                 <ul className="space-y-2">
@@ -496,7 +497,7 @@ function TeamSection() {
             <Card className="bg-card border-border/50 h-full">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <Sparkles className="w-6 h-6 text-primary" />
+                  <Star className="w-6 h-6 text-primary" />
                   <h4 className="text-lg font-semibold">Regentes</h4>
                 </div>
                 <ul className="space-y-2">
@@ -512,7 +513,7 @@ function TeamSection() {
             <Card className="bg-card border-border/50 h-full">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <Zap className="w-6 h-6 text-primary" />
+                  <Smartphone className="w-6 h-6 text-primary" />
                   <h4 className="text-lg font-semibold">Mídia</h4>
                 </div>
                 <ul className="space-y-2">

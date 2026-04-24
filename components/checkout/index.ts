@@ -1,0 +1,6 @@
+export { CheckoutWizard } from './checkout-wizard'
+export { StepIdentification } from './step-identification'
+export { StepDataForm } from './step-data-form'
+export { StepProducts } from './step-products'
+export { StepSummary } from './step-summary'
+export { StepPayment } from './step-payment'

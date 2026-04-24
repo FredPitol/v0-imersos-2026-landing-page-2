@@ -252,7 +252,7 @@ function AboutSection() {
             size="lg" 
             className="text-lg md:text-xl px-8 py-6 h-auto bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-lg shadow-primary/30"
           >
-            <a href="#">QUERO PARTICIPAR DA MISSÃO</a>
+            <a href="/inscricao">QUERO ME INSCREVER</a>
           </Button>
         </FadeInSection>
 
@@ -281,7 +281,7 @@ function AboutSection() {
         {/* Journey Section */}
         <div className="mt-16">
           <FadeInSection><h3 className="text-2xl md:text-3xl font-bold text-center mb-10 text-primary">
-            VOCÊ SERÁ CONDUZIDO A UMA JORNADA test
+            VOCÊ SERÁ CONDUZIDO A UMA JORNADA
           </h3></FadeInSection>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -311,7 +311,7 @@ function AboutSection() {
             size="lg" 
             className="text-lg px-8 py-6 h-auto bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-lg shadow-primary/30"
           >
-            <a href="#">QUERO PARTICIPAR DA MISSÃO</a>
+            <a href="/inscricao">QUERO ME INSCREVER</a>
           </Button>
         </FadeInSection>
       </div>
@@ -422,6 +422,9 @@ function HowItStartedSection() {
 
 // Team Section
 function TeamSection() {
+  const [activeGroup, setActiveGroup] = useState<string>("Coordenadores")
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+
   const teamMembers = [
     { role: "Fundadora e Líder", name: "Letícia Oliveira", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" },
     { role: "Líder", name: "Luis Adriano", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop" },
@@ -437,6 +440,42 @@ function TeamSection() {
   const regents = ["Amanda Paes", "John Kennedy", "Thaynara Queiroz", "Leidy Augusto"]
   
   const media = ["Cassielen Oliveira", "Emily Nascimento", "Izabelly Souza", "Jhamilly Oliveira"]
+
+  const otherTeamMembers = [
+    ...coordinators.map(name => ({ group: "Coordenadores", role: "Coordenador", name, image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop" })),
+    ...regents.map(name => ({ group: "Regentes", role: "Regente", name, image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" })),
+    ...media.map(name => ({ group: "Mídia", role: "Mídia", name, image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop" }))
+  ]
+
+  useEffect(() => {
+    if (!scrollContainerRef.current) return;
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          const group = (entry.target as HTMLElement).dataset.group;
+          if (group) setActiveGroup(group);
+        }
+      }
+    };
+    
+    const obs = new IntersectionObserver(handleIntersect, {
+      root: scrollContainerRef.current,
+      rootMargin: "0px -50% 0px -50%", // Triggers precisely when passing the center of the carousel
+      threshold: 0
+    });
+    
+    const items = scrollContainerRef.current.querySelectorAll('.team-member-card');
+    items.forEach(item => obs.observe(item));
+    
+    return () => obs.disconnect();
+  }, []);
+
+  const scrollCarousel = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = direction === 'left' ? -320 : 320;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   return (
     <section id="equipe" className="py-24 bg-card/30 scroll-mt-20">
@@ -476,53 +515,58 @@ function TeamSection() {
         </div>
 
         {/* Other Teams */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <FadeInSection delay={100} className="h-full">
-            <Card className="bg-card border-border/50 h-full">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Crown className="w-6 h-6 text-primary" />
-                  <h4 className="text-lg font-semibold">Coordenadores</h4>
-                </div>
-                <ul className="space-y-2">
-                  {coordinators.map((name, index) => (
-                    <li key={index} className="text-muted-foreground">{name}</li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+        <div className="mt-20 max-w-5xl mx-auto">
+          <FadeInSection>
+            <div className="text-center mb-8 flex items-center justify-center gap-3">
+              {activeGroup === 'Coordenadores' && <Crown className="w-8 h-8 text-primary" />}
+              {activeGroup === 'Regentes' && <Star className="w-8 h-8 text-primary" />}
+              {activeGroup === 'Mídia' && <Smartphone className="w-8 h-8 text-primary" />}
+              <h3 className="text-2xl md:text-4xl font-bold text-primary transition-colors duration-300">
+                {activeGroup}
+              </h3>
+            </div>
           </FadeInSection>
-
-          <FadeInSection delay={200} className="h-full">
-            <Card className="bg-card border-border/50 h-full">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Star className="w-6 h-6 text-primary" />
-                  <h4 className="text-lg font-semibold">Regentes</h4>
+          
+          <FadeInSection delay={100} className="relative group">
+            <div 
+              ref={scrollContainerRef}
+              className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 [&::-webkit-scrollbar]:hidden"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {otherTeamMembers.map((member, index) => (
+                <div 
+                  key={index}
+                  className="team-member-card snap-center shrink-0 w-[260px] md:w-[280px]"
+                  data-group={member.group}
+                >
+                  <Card className="relative overflow-hidden group border-border/50 hover:border-primary/50 transition-all h-full aspect-[4/5] rounded-xl">
+                    <img 
+                      src={member.image} 
+                      alt={member.name} 
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-transparent" />
+                    <CardContent className="absolute bottom-0 left-0 right-0 p-6 text-center">
+                      <p className="text-sm text-primary font-semibold mb-1 drop-shadow-md tracking-wide uppercase">{member.role}</p>
+                      <h4 className="text-xl font-bold text-white drop-shadow-lg">{member.name}</h4>
+                    </CardContent>
+                  </Card>
                 </div>
-                <ul className="space-y-2">
-                  {regents.map((name, index) => (
-                    <li key={index} className="text-muted-foreground">{name}</li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </FadeInSection>
+              ))}
+            </div>
 
-          <FadeInSection delay={300} className="h-full">
-            <Card className="bg-card border-border/50 h-full">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Smartphone className="w-6 h-6 text-primary" />
-                  <h4 className="text-lg font-semibold">Mídia</h4>
-                </div>
-                <ul className="space-y-2">
-                  {media.map((name, index) => (
-                    <li key={index} className="text-muted-foreground">{name}</li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+            <button 
+              onClick={() => scrollCarousel('left')}
+              className="absolute left-2 md:-left-4 top-[45%] -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-background/80 hover:bg-background border border-border/50 text-foreground backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all z-10 shadow-md"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={() => scrollCarousel('right')}
+              className="absolute right-2 md:-right-4 top-[45%] -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-background/80 hover:bg-background border border-border/50 text-foreground backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all z-10 shadow-md"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </FadeInSection>
         </div>
 
@@ -534,7 +578,7 @@ function TeamSection() {
             size="lg" 
             className="text-lg md:text-xl px-8 py-6 h-auto bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-lg shadow-primary/30"
           >
-            <a href="#">QUERO PARTICIPAR DA MISSÃO</a>
+            <a href="/inscricao">QUERO ME INSCREVER</a>
           </Button>
         </FadeInSection>
       </div>
@@ -770,7 +814,7 @@ function FinalCTASection() {
               size="lg" 
               className="text-xl md:text-2xl px-12 py-8 h-auto bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-2xl shadow-primary/40 transition-all hover:scale-105"
             >
-              <a href="#">QUERO PARTICIPAR DA MISSÃO </a>
+              <a href="/inscricao">QUERO ME INSCREVER</a>
             </Button>
           </div>
         </FadeInSection>
